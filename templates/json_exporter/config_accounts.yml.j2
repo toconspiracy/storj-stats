@@ -1,0 +1,11 @@
+---
+metrics:
+{% for satellite in storj_stats_satellites %}
+- name: storj_stats_registered_accounts
+  type: value
+  help: number of registered user accounts
+  path: '{.{{ satellite.id_escaped }}.registered_accounts}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: accounts
+{% endfor %}

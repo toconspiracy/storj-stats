@@ -1,0 +1,60 @@
+---
+metrics:
+{% for satellite in storj_stats_satellites %}
+- name: storj_stats_active_nodes
+  type: value
+  help: number of storage nodes that were successfully contacted within the last 4 hours, excludes disqualified and exited nodes
+  path: '{.{{ satellite.id_escaped }}.active_nodes}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: nodes
+- name: storj_stats_disqualified_nodes
+  type: value
+  help: number of disqualified storage nodes
+  path: '{.{{ satellite.id_escaped }}.disqualified_nodes}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: nodes
+- name: storj_stats_exited_nodes
+  type: value
+  help: number of storage nodes that gracefully exited the satellite, excludes disqualified nodes
+  path: '{.{{ satellite.id_escaped }}.exited_nodes}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: nodes
+- name: storj_stats_offline_nodes
+  type: value
+  help: number of storage nodes that were not successfully contacted within the last 4 hours, excludes disqualified and exited nodes
+  path: '{.{{ satellite.id_escaped }}.offline_nodes}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: nodes
+- name: storj_stats_suspended_nodes
+  type: value
+  help: number of suspended storage nodes, excludes disqualified and exited nodes
+  path: '{.{{ satellite.id_escaped }}.active_nodes}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: nodes
+- name: storj_stats_total_nodes
+  type: value
+  help: total number of unique storage nodes that ever contacted the satellite
+  path: '{.{{ satellite.id_escaped }}.total_nodes}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: nodes
+- name: storj_stats_vetted_nodes
+  type: value
+  help: number of vetted storage nodes, excludes disqualified and exited nodes
+  path: '{.{{ satellite.id_escaped }}.vetted_nodes}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: nodes
+- name: storj_stats_full_nodes
+  type: value
+  help: number of storage nodes without free disk
+  path: '{.{{ satellite.id_escaped }}.full_nodes}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: nodes
+{% endfor %}

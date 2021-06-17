@@ -1,0 +1,102 @@
+---
+metrics:
+{% for satellite in storj_stats_satellites %}
+- name: storj_stats_bandwidth_bytes_downloaded
+  type: value
+  help: number of bytes downloaded (egress) from the network for the last 30 days
+  path: '{.{{ satellite.id_escaped }}.bandwidth_bytes_downloaded}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: data
+- name: storj_stats_bandwidth_bytes_uploaded
+  type: value
+  help: number of bytes uploaded (ingress) to the network for the last 30 days
+  path: '{.{{ satellite.id_escaped }}.bandwidth_bytes_uploaded}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: data
+- name: storj_stats_storage_inline_bytes
+  type: value
+  help: number of bytes stored in inline segments on the satellite
+  path: '{.{{ satellite.id_escaped }}.storage_inline_bytes}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: data
+- name: storj_stats_storage_inline_segments
+  type: value
+  help: number of segments stored inline on the satellite
+  path: '{.{{ satellite.id_escaped }}.storage_inline_segments}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: data
+- name: storj_stats_storage_median_healthy_pieces_count
+  type: value
+  help: median number of healthy pieces per segment stored on storage nodes
+  path: '{.{{ satellite.id_escaped }}.storage_median_healthy_pieces_count}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: data
+- name: storj_stats_storage_min_healthy_pieces_count
+  type: value
+  help: minimum number of healthy pieces per segment stored on storage nodes
+  path: '{.{{ satellite.id_escaped }}.storage_min_healthy_pieces_count}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: data
+- name: storj_stats_storage_remote_bytes
+  type: value
+  help: number of bytes stored on storage nodes (does not take into account the expansion factor of erasure encoding)
+  path: '{.{{ satellite.id_escaped }}.storage_remote_bytes}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: data
+- name: storj_stats_storage_remote_segments
+  type: value
+  help: number of segments stored on storage nodes
+  path: '{.{{ satellite.id_escaped }}.storage_remote_segments}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: data
+- name: storj_stats_storage_remote_segments_lost
+  type: value
+  help: number of irreparable segments lost from storage nodes
+  path: '{.{{ satellite.id_escaped }}.storage_remote_segments_lost}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: data
+- name: storj_stats_storage_total_bytes
+  type: value
+  help: total number of bytes (both inline and remote) stored on the network
+  path: '{.{{ satellite.id_escaped }}.storage_total_bytes}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: data
+- name: storj_stats_storage_total_objects
+  type: value
+  help: total number of objects stored on the network
+  path: '{.{{ satellite.id_escaped }}.storage_total_objects}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: data
+- name: storj_stats_storage_total_pieces
+  type: value
+  help: total number of pieces stored on storage nodes
+  path: '{.{{ satellite.id_escaped }}.storage_total_pieces}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: data
+- name: storj_stats_storage_total_segments
+  type: value
+  help: total number of segments stored on storage nodes
+  path: '{.{{ satellite.id_escaped }}.storage_total_segments}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: data
+- name: storj_stats_storage_free_capacity_estimate_bytes
+  type: value
+  help: statistical estimate of free storage node capacity, with suspicious values removed
+  path: '{.{{ satellite.id_escaped }}.storage_free_capacity_estimate_bytes}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: data
+{% endfor %}

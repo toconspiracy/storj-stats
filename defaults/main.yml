@@ -1,0 +1,21 @@
+---
+# Docker Network Config
+storj_stats_network_name: storj-stats
+storj_stats_network_subnet: 172.11.0.0/24
+storj_stats_network_gateway: 172.11.0.1
+storj_stats_network_iprange: 172.11.0.64/26
+
+# Proxy Settings
+storj_stats_deploy_proxy: True
+
+# Exporter Settings
+storj_stats_exporter_config_template_path: json_exporter
+
+# Prometheus Settings
+storj_stats_prometheus_config_template: prometheus/prometheus.yml.j2
+storj_stats_prometheus_retention: 10y
+
+# Grafana Settings
+storj_stats_grafana_provisioning_config_template_path: grafana
+storj_stats_grafana_adminuser_name: admin
+storj_stats_grafana_adminuser_password: admin

@@ -1,0 +1,55 @@
+---
+- name: Create Storj Stats Grafana Directories
+  file:
+    path: "{{ storj_stats_path }}/grafana/{{ item }}"
+    state: directory
+    owner: 472
+    group: 472
+  loop:
+    - lib/dashboards
+    - config
+
+- name: Create Storj Stats Grafana Provisioning Directories
+  file:
+    path: "{{ storj_stats_path }}/grafana/config/provisioning/{{ item }}"
+    state: directory
+    owner: 472
+    group: 472
+  loop: "{{ storj_stats_grafana_provisioning }}"
+
+- name: Copy Grafana Provisioning Configs
+  template:
+    src: "{{ storj_stats_grafana_provisioning_config_template_path }}/{{ item }}.yml.j2"
+    dest: "{{ storj_stats_path }}/grafana/config/provisioning/{{ item }}/automatic.yml"
+  loop: "{{ storj_stats_grafana_provisioning }}"
+
+- name: Copy Grafana Dashboards
+  template:
+    src: "{{ storj_stats_grafana_provisioning_config_template_path }}/dashboard_{{ item }}.json.j2"
+    dest: "{{ storj_stats_path }}/grafana/lib/dashboards/{{ item }}.json"
+  loop: "{{ storj_stats_grafana_dashboards }}"
+
+- name: Copy Grafana Config
+  template:
+    src: "{{ storj_stats_grafana_provisioning_config_template_path }}/config.ini.j2"
+    dest: "{{ storj_stats_path }}/grafana/config/grafana.ini"
+
+- name: Setup Grafana
+  docker_container:
+    container_default_behavior: compatibility
+    networks_cli_compatible: no
+    restart_policy: always
+    name: storj-stats-grafana
+    image: grafana/grafana
+    memory: 128M
+    mounts:
+      - type: bind
+        source: "{{ storj_stats_path }}/grafana/lib"
+        target: /var/lib/grafana
+      - type: bind
+        source: "{{ storj_stats_path }}/grafana/config"
+        target: /etc/grafana
+    #published_ports:
+    #    - "3000:3000"
+    networks:
+      - name: "{{ storj_stats_network_name }}"

@@ -1,0 +1,14 @@
+---
+- name: Create Storj Stats Network
+  docker_network:
+    name: "{{  storj_stats_network_name }}"
+    ipam_config:
+      - subnet: "{{ storj_stats_network_subnet }}"
+        gateway: "{{ storj_stats_network_gateway }}"
+        iprange: "{{ storj_stats_network_iprange }}"
+
+- include: deploy_json_exporter.yml
+- include: deploy_prometheus.yml
+- include: deploy_grafana.yml
+- include: deploy_proxy.yml
+  when: storj_stats_deploy_proxy

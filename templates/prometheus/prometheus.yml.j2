@@ -1,0 +1,36 @@
+# {{ ansible_managed }}
+global:
+  scrape_interval:     30m # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 30m # Evaluate rules every 15 seconds. The default is every 1 minute.
+
+scrape_configs:
+  ## gather metrics of prometheus itself
+- job_name: prometheus
+  static_configs:
+    - targets:
+      - localhost:9090
+
+  ## gather the metrics of json_exporter application itself
+- job_name: json_exporter
+  static_configs:
+    - targets:
+{% for exporter in storj_stats_exporter_json_sources %}
+      - storj-stats-exporter-{{ exporter }}:7979
+{% endfor %}
+
+  ## gather the metrics from third party json sources, via the json exporter
+{% for exporter in storj_stats_exporter_json_sources %}
+- job_name: json_{{ exporter }}
+  metrics_path: /probe
+  static_configs:
+    - targets:
+      - https://stats.storjshare.io/{{ exporter }}.json
+  relabel_configs:
+    - source_labels: [__address__]
+      target_label: __param_target
+    - source_labels: [__param_target]
+      target_label: instance
+    - target_label: __address__
+      replacement: storj-stats-exporter-{{ exporter }}:7979
+
+{% endfor %}

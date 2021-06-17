@@ -1,0 +1,53 @@
+---
+- name: Create Proxy Data Directories
+  file:
+    path: "{{ storj_stats_path }}/{{ item }}"
+    state: directory
+  loop:
+    - proxy_app/data
+    - proxy_app/letsencrypt
+    - proxy_db/mysql
+
+- name: Setup MariaDB Container
+  docker_container:
+    restart_policy: unless-stopped
+    name: proxy-mariadb
+    image: mariadb
+    memory: 256M
+    env:
+      MYSQL_ROOT_PASSWORD: 'npm'
+      MYSQL_DATABASE: 'npm'
+      MYSQL_USER: 'npm'
+      MYSQL_PASSWORD: 'npm'
+    mounts:
+      - type: bind
+        source: "{{ storj_stats_path }}/proxy_db/mysql"
+        target: /var/lib/mysql
+    networks:
+      - name: "{{ storj_stats_network_name }}"
+
+- name: Setup Proxy Container
+  docker_container:
+    restart_policy: unless-stopped
+    name: proxy-app
+    image: jc21/nginx-proxy-manager:latest
+    memory: 128M
+    published_ports:
+      - "80:80"
+      - "443:443"
+      - "81:81"
+    env:
+      DB_MYSQL_HOST: "proxy-mariadb"
+      DB_MYSQL_PORT: "3306"
+      DB_MYSQL_USER: "npm"
+      DB_MYSQL_PASSWORD: "npm"
+      DB_MYSQL_NAME: "npm"
+    mounts:
+      - type: bind
+        source: "{{ storj_stats_path }}/proxy_app/data"
+        target: /data
+      - type: bind
+        source: "{{ storj_stats_path }}/proxy_app/letsencrypt"
+        target: /etc/letsencrypt
+    networks:
+      - name: "{{ storj_stats_network_name }}"
