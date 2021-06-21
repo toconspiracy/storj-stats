@@ -3,14 +3,14 @@ apiVersion: 1
 
 # list of datasources that should be deleted from the database
 deleteDatasources:
-  - name: Prometheus Storj Stats
+  - name: VictoriaMetrics
     orgId: 1
 
 # list of datasources to insert/update depending
 # what's available in the database
 datasources:
   # <string, required> name of the datasource. Required
-  - name: Prometheus Storj Stats
+  - name: VictoriaMetrics
     # <string, required> datasource type. Required
     type: prometheus
     # <string, required> access mode. proxy or direct (Server or Browser in the UI). Required
@@ -18,12 +18,12 @@ datasources:
     # <int> org id. will default to orgId 1 if not specified
     orgId: 1
     # <string> custom UID which can be used to reference this datasource in other parts of the configuration, if not specified will be generated automatically
-    uid: storj_stats_prometheus
+    uid: storj_stats_vm
     # <string> url
-    url: storj-stats-prometheus:9090
+    url: http://storj-stats-victoriametrics:8428
     version: 1
     # <bool> allow users to edit datasources from the UI.
     editable: true
 
     jsonData:
-      timeInterval: 5m
+      timeInterval: 15m

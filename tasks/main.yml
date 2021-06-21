@@ -7,8 +7,8 @@
         gateway: "{{ storj_stats_network_gateway }}"
         iprange: "{{ storj_stats_network_iprange }}"
 
+- include: deploy_victoriametrics.yml
 - include: deploy_json_exporter.yml
-- include: deploy_prometheus.yml
 - include: deploy_grafana.yml
 - include: deploy_proxy.yml
   when: storj_stats_deploy_proxy

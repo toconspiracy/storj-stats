@@ -11,9 +11,9 @@ storj_stats_deploy_proxy: True
 # Exporter Settings
 storj_stats_exporter_config_template_path: json_exporter
 
-# Prometheus Settings
-storj_stats_prometheus_config_template: prometheus/prometheus.yml.j2
-storj_stats_prometheus_retention: 10y
+# Victorie Metrics Settings
+storj_stats_vm_config_template: victoriametrics/vm_jobs.yml.j2
+storj_stats_vm_retention: 120
 
 # Grafana Settings
 storj_stats_grafana_provisioning_config_template_path: grafana

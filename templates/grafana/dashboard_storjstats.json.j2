@@ -15,7 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1623941365779,
+  "id": 5,
+  "iteration": 1624294335001,
   "links": [],
   "panels": [
     {
@@ -27,13 +28,790 @@
         "x": 0,
         "y": 0
       },
-      "id": 322,
+      "id": 378,
       "panels": [],
-      "title": "Overview",
+      "title": "Overview (Calculated)",
       "type": "row"
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "decbytes"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Free Space"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "super-light-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "free reported space"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "stored customer Data"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 4,
+        "x": 0,
+        "y": 1
+      },
+      "id": 405,
+      "options": {
+        "displayLabels": [
+          "value"
+        ],
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "max(storj_stats_storage_free_capacity_estimate_bytes)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "free reported space",
+          "refId": "B"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum(storj_stats_storage_remote_bytes)",
+          "interval": "",
+          "legendFormat": "stored customer Data",
+          "queryType": "randomWalk",
+          "refId": "A"
+        }
+      ],
+      "title": "Accumulated Datausage over all Satellites",
+      "type": "piechart"
+    },
+    {
+      "datasource": "VictoriaMetrics",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 4,
+        "y": 1
+      },
+      "id": 408,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.0.2",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum(storj_stats_storage_remote_segments_lost{satellite=~\"AP1|EU1|US1\"})",
+          "interval": "",
+          "legendFormat": "",
+          "queryType": "randomWalk",
+          "refId": "A"
+        }
+      ],
+      "title": "Lost Segments (AP1/EU1/US1)",
+      "type": "stat"
+    },
+    {
+      "datasource": "VictoriaMetrics",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "blue",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 7,
+        "y": 1
+      },
+      "id": 491,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.0.2",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum(storj_stats_storage_remote_segments_lost{satellite=~\"Europe-North-1|Saltlake|US2\"})",
+          "interval": "",
+          "legendFormat": "",
+          "queryType": "randomWalk",
+          "refId": "A"
+        }
+      ],
+      "title": "Lost Segments (Test)",
+      "type": "stat"
+    },
+    {
+      "datasource": "VictoriaMetrics",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "purple",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 10,
+        "y": 1
+      },
+      "id": 410,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.0.2",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum(storj_stats_storage_total_bytes)/sum(storj_stats_storage_total_segments)",
+          "interval": "",
+          "legendFormat": "",
+          "queryType": "randomWalk",
+          "refId": "A"
+        }
+      ],
+      "title": "avg Segmentsize",
+      "type": "stat"
+    },
+    {
+      "datasource": "VictoriaMetrics",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 13,
+        "y": 1
+      },
+      "id": 452,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.0.2",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "max(storj_stats_active_nodes)",
+          "interval": "",
+          "legendFormat": "",
+          "queryType": "randomWalk",
+          "refId": "A"
+        }
+      ],
+      "title": "Active nodes (contacted last 4 hrs)",
+      "type": "stat"
+    },
+    {
+      "datasource": "VictoriaMetrics",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "orange",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 16,
+        "y": 1
+      },
+      "id": 453,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.0.2",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "max(storj_stats_suspended_nodes)",
+          "interval": "",
+          "legendFormat": "",
+          "queryType": "randomWalk",
+          "refId": "A"
+        }
+      ],
+      "title": "Suspended Nodes",
+      "type": "stat"
+    },
+    {
+      "datasource": "VictoriaMetrics",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 18,
+        "y": 1
+      },
+      "id": 454,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.0.2",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "max(storj_stats_vetted_nodes)",
+          "interval": "",
+          "legendFormat": "",
+          "queryType": "randomWalk",
+          "refId": "A"
+        }
+      ],
+      "title": "Vetted Nodes",
+      "type": "stat"
+    },
+    {
+      "datasource": "VictoriaMetrics",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "blue",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 21,
+        "y": 1
+      },
+      "id": 455,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.0.2",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "avg(storj_stats_total_nodes)-\navg(storj_stats_disqualified_nodes)-\navg(storj_stats_exited_nodes)-\navg(storj_stats_vetted_nodes)",
+          "interval": "",
+          "legendFormat": "",
+          "queryType": "randomWalk",
+          "refId": "A"
+        }
+      ],
+      "title": "Unvetted nodes",
+      "type": "stat"
+    },
+    {
+      "aliasColors": {
+        "free reported space": "blue",
+        "stored customer Data": "green"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "VictoriaMetrics",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 9,
+        "x": 4,
+        "y": 5
+      },
+      "hiddenSeries": false,
+      "id": 406,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.0.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "stored customer Data",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "max(storj_stats_storage_free_capacity_estimate_bytes)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "free reported space",
+          "refId": "B"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum(storj_stats_storage_remote_bytes)",
+          "interval": "",
+          "legendFormat": "stored customer Data",
+          "queryType": "randomWalk",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Accumulated Datausage over all Satellites",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "decbytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {
+        "offline nodes": "red",
+        "suspended": "orange"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "VictoriaMetrics",
+      "description": "",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 11,
+        "x": 13,
+        "y": 5
+      },
+      "hiddenSeries": false,
+      "id": 450,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "hideEmpty": false,
+        "hideZero": false,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.0.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:142",
+          "alias": "suspended",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "max(storj_stats_active_nodes)",
+          "interval": "",
+          "legendFormat": "active nodes",
+          "queryType": "randomWalk",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "max(storj_stats_offline_nodes)",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "legendFormat": "offline nodes",
+          "refId": "D"
+        },
+        {
+          "exemplar": true,
+          "expr": "max(storj_stats_suspended_nodes)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "suspended",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Nodestatus over all Satellites (max)",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:122",
+          "format": "none",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:123",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 11
+      },
+      "id": 322,
+      "panels": [],
+      "title": "per Satellite Overview",
+      "type": "row"
+    },
+    {
+      "datasource": "VictoriaMetrics",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -56,7 +834,7 @@
         "h": 5,
         "w": 4,
         "x": 0,
-        "y": 1
+        "y": 12
       },
       "id": 295,
       "options": {
@@ -92,7 +870,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -117,7 +895,7 @@
         "h": 5,
         "w": 4,
         "x": 4,
-        "y": 1
+        "y": 12
       },
       "id": 296,
       "options": {
@@ -153,7 +931,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -178,7 +956,7 @@
         "h": 5,
         "w": 4,
         "x": 8,
-        "y": 1
+        "y": 12
       },
       "id": 297,
       "options": {
@@ -214,7 +992,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -239,7 +1017,7 @@
         "h": 5,
         "w": 4,
         "x": 12,
-        "y": 1
+        "y": 12
       },
       "id": 298,
       "options": {
@@ -275,7 +1053,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -300,7 +1078,7 @@
         "h": 5,
         "w": 4,
         "x": 16,
-        "y": 1
+        "y": 12
       },
       "id": 299,
       "options": {
@@ -336,7 +1114,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -361,7 +1139,7 @@
         "h": 5,
         "w": 4,
         "x": 20,
-        "y": 1
+        "y": 12
       },
       "id": 300,
       "options": {
@@ -397,7 +1175,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -451,7 +1229,7 @@
         "h": 8,
         "w": 4,
         "x": 0,
-        "y": 6
+        "y": 17
       },
       "id": 57,
       "options": {
@@ -497,7 +1275,7 @@
       "type": "piechart"
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -550,7 +1328,7 @@
         "h": 8,
         "w": 4,
         "x": 4,
-        "y": 6
+        "y": 17
       },
       "id": 261,
       "options": {
@@ -596,7 +1374,7 @@
       "type": "piechart"
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -649,7 +1427,7 @@
         "h": 8,
         "w": 4,
         "x": 8,
-        "y": 6
+        "y": 17
       },
       "id": 264,
       "options": {
@@ -695,7 +1473,7 @@
       "type": "piechart"
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -748,7 +1526,7 @@
         "h": 8,
         "w": 4,
         "x": 12,
-        "y": 6
+        "y": 17
       },
       "id": 265,
       "options": {
@@ -794,7 +1572,7 @@
       "type": "piechart"
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -847,7 +1625,7 @@
         "h": 8,
         "w": 4,
         "x": 16,
-        "y": 6
+        "y": 17
       },
       "id": 262,
       "options": {
@@ -893,7 +1671,7 @@
       "type": "piechart"
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -946,7 +1724,7 @@
         "h": 8,
         "w": 4,
         "x": 20,
-        "y": 6
+        "y": 17
       },
       "id": 263,
       "options": {
@@ -992,7 +1770,7 @@
       "type": "piechart"
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "description": "number of bytes downloaded (egress) from the network for the last 30 days",
       "fieldConfig": {
         "defaults": {
@@ -1017,7 +1795,7 @@
         "h": 5,
         "w": 4,
         "x": 0,
-        "y": 14
+        "y": 25
       },
       "id": 84,
       "options": {
@@ -1050,7 +1828,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "description": "number of bytes downloaded (egress) from the network for the last 30 days",
       "fieldConfig": {
         "defaults": {
@@ -1075,7 +1853,7 @@
         "h": 5,
         "w": 4,
         "x": 4,
-        "y": 14
+        "y": 25
       },
       "id": 266,
       "options": {
@@ -1108,7 +1886,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "description": "number of bytes downloaded (egress) from the network for the last 30 days",
       "fieldConfig": {
         "defaults": {
@@ -1133,7 +1911,7 @@
         "h": 5,
         "w": 4,
         "x": 8,
-        "y": 14
+        "y": 25
       },
       "id": 269,
       "options": {
@@ -1166,7 +1944,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "description": "number of bytes downloaded (egress) from the network for the last 30 days",
       "fieldConfig": {
         "defaults": {
@@ -1191,7 +1969,7 @@
         "h": 5,
         "w": 4,
         "x": 12,
-        "y": 14
+        "y": 25
       },
       "id": 270,
       "options": {
@@ -1224,7 +2002,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "description": "number of bytes downloaded (egress) from the network for the last 30 days",
       "fieldConfig": {
         "defaults": {
@@ -1249,7 +2027,7 @@
         "h": 5,
         "w": 4,
         "x": 16,
-        "y": 14
+        "y": 25
       },
       "id": 267,
       "options": {
@@ -1282,7 +2060,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "description": "number of bytes downloaded (egress) from the network for the last 30 days",
       "fieldConfig": {
         "defaults": {
@@ -1307,7 +2085,7 @@
         "h": 5,
         "w": 4,
         "x": 20,
-        "y": 14
+        "y": 25
       },
       "id": 268,
       "options": {
@@ -1340,7 +2118,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "description": "number of bytes uploaded (ingress) to the network for the last 30 days",
       "fieldConfig": {
         "defaults": {
@@ -1365,7 +2143,7 @@
         "h": 5,
         "w": 4,
         "x": 0,
-        "y": 19
+        "y": 30
       },
       "id": 85,
       "options": {
@@ -1398,7 +2176,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "description": "number of bytes uploaded (ingress) to the network for the last 30 days",
       "fieldConfig": {
         "defaults": {
@@ -1423,7 +2201,7 @@
         "h": 5,
         "w": 4,
         "x": 4,
-        "y": 19
+        "y": 30
       },
       "id": 272,
       "options": {
@@ -1456,7 +2234,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "description": "number of bytes uploaded (ingress) to the network for the last 30 days",
       "fieldConfig": {
         "defaults": {
@@ -1481,7 +2259,7 @@
         "h": 5,
         "w": 4,
         "x": 8,
-        "y": 19
+        "y": 30
       },
       "id": 274,
       "options": {
@@ -1514,7 +2292,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "description": "number of bytes uploaded (ingress) to the network for the last 30 days",
       "fieldConfig": {
         "defaults": {
@@ -1539,7 +2317,7 @@
         "h": 5,
         "w": 4,
         "x": 12,
-        "y": 19
+        "y": 30
       },
       "id": 275,
       "options": {
@@ -1572,7 +2350,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "description": "number of bytes uploaded (ingress) to the network for the last 30 days",
       "fieldConfig": {
         "defaults": {
@@ -1597,7 +2375,7 @@
         "h": 5,
         "w": 4,
         "x": 16,
-        "y": 19
+        "y": 30
       },
       "id": 271,
       "options": {
@@ -1630,7 +2408,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "description": "number of bytes uploaded (ingress) to the network for the last 30 days",
       "fieldConfig": {
         "defaults": {
@@ -1655,7 +2433,7 @@
         "h": 5,
         "w": 4,
         "x": 20,
-        "y": 19
+        "y": 30
       },
       "id": 273,
       "options": {
@@ -1694,7 +2472,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 24
+        "y": 35
       },
       "id": 8,
       "panels": [],
@@ -1703,18 +2481,395 @@
       "type": "row"
     },
     {
+      "datasource": "VictoriaMetrics",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 80,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 35
+              },
+              {
+                "color": "light-green",
+                "value": 45
+              },
+              {
+                "color": "semi-dark-green",
+                "value": 55
+              },
+              {
+                "color": "dark-green",
+                "value": 65
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 0,
+        "y": 36
+      },
+      "id": 523,
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "text": {}
+      },
+      "pluginVersion": "8.0.2",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "storj_stats_storage_median_healthy_pieces_count{satellite=~\"$satellite.*\"}",
+          "interval": "",
+          "legendFormat": "",
+          "queryType": "randomWalk",
+          "refId": "A"
+        }
+      ],
+      "title": "Healthy Pieces $satellite (Median)",
+      "type": "gauge"
+    },
+    {
+      "datasource": "VictoriaMetrics",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 80,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 35
+              },
+              {
+                "color": "light-green",
+                "value": 45
+              },
+              {
+                "color": "semi-dark-green",
+                "value": 55
+              },
+              {
+                "color": "dark-green",
+                "value": 65
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 6,
+        "y": 36
+      },
+      "id": 524,
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "text": {}
+      },
+      "pluginVersion": "8.0.2",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "storj_stats_storage_min_healthy_pieces_count{satellite=~\"$satellite.*\"}",
+          "interval": "",
+          "legendFormat": "",
+          "queryType": "randomWalk",
+          "refId": "A"
+        }
+      ],
+      "title": "Healthy Pieces $satellite (Min)",
+      "type": "gauge"
+    },
+    {
+      "datasource": "VictoriaMetrics",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 30,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": 3600000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Disqualified nodes"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 36
+      },
+      "id": 35,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "storj_stats_total_nodes{satellite=~\"$satellite.*\"}",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "legendFormat": "total nodes",
+          "refId": "F"
+        },
+        {
+          "exemplar": true,
+          "expr": "storj_stats_disqualified_nodes{satellite=~\"$satellite.*\"}",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "legendFormat": "Disqualified nodes",
+          "refId": "B"
+        },
+        {
+          "exemplar": true,
+          "expr": "storj_stats_exited_nodes{satellite=~\"$satellite.*\"}",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "legendFormat": "Exited nodes",
+          "refId": "C"
+        }
+      ],
+      "title": "Nodestats $satellite",
+      "type": "timeseries"
+    },
+    {
+      "aliasColors": {
+        "offline nodes": "red",
+        "suspended": "orange"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "VictoriaMetrics",
+      "description": "",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 42
+      },
+      "hiddenSeries": false,
+      "id": 19,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.0.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:438",
+          "alias": "suspended",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "storj_stats_active_nodes{satellite=~\"$satellite.*\"}",
+          "interval": "",
+          "legendFormat": "active nodes",
+          "queryType": "randomWalk",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "storj_stats_offline_nodes{satellite=~\"$satellite.*\"}",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "legendFormat": "offline nodes",
+          "refId": "D"
+        },
+        {
+          "exemplar": true,
+          "expr": "storj_stats_suspended_nodes{satellite=~\"$satellite.*\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "suspended",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Livestatus nodes $satellite",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:445",
+          "format": "none",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:446",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 8,
+        "h": 5,
         "w": 12,
         "x": 0,
-        "y": 25
+        "y": 43
       },
       "hiddenSeries": false,
       "id": 122,
@@ -1771,7 +2926,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Healthy Pieces Median/Mininum",
+      "title": "Healthy Pieces $satellite",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1815,14 +2970,14 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus Storj Stats",
+      "datasource": "VictoriaMetrics",
       "fill": 1,
       "fillGradient": 3,
       "gridPos": {
-        "h": 8,
+        "h": 6,
         "w": 12,
-        "x": 12,
-        "y": 25
+        "x": 0,
+        "y": 48
       },
       "hiddenSeries": false,
       "id": 163,
@@ -1878,7 +3033,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Remote Segments",
+      "title": "Remotsegments $satellite",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1918,212 +3073,123 @@
       }
     },
     {
-      "datasource": "Prometheus Storj Stats",
+      "aliasColors": {
+        "unvetted nodes": "blue",
+        "vetted nodes": "green"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "VictoriaMetrics",
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 30,
-            "gradientMode": "opacity",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineStyle": {
-              "fill": "solid"
-            },
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": 3600000,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
+          "unit": "none"
         },
         "overrides": []
       },
+      "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 33
-      },
-      "id": 19,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "multi"
-        }
-      },
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "storj_stats_active_nodes{satellite=~\"$satellite.*\"}",
-          "interval": "",
-          "legendFormat": "Active nodes",
-          "queryType": "randomWalk",
-          "refId": "A"
-        },
-        {
-          "exemplar": true,
-          "expr": "storj_stats_offline_nodes{satellite=~\"$satellite.*\"}",
-          "format": "time_series",
-          "hide": false,
-          "instant": false,
-          "interval": "",
-          "legendFormat": "Offline nodes",
-          "refId": "D"
-        }
-      ],
-      "title": "Active/Offline nodes for $satellite",
-      "type": "timeseries"
-    },
-    {
-      "datasource": "Prometheus Storj Stats",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 30,
-            "gradientMode": "opacity",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": 3600000,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
+        "h": 6,
         "w": 12,
         "x": 12,
-        "y": 33
+        "y": 48
       },
-      "id": 35,
+      "hiddenSeries": false,
+      "id": 413,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "multi"
-        }
+        "alertThreshold": true
       },
+      "percentage": false,
+      "pluginVersion": "8.0.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:329",
+          "alias": "unvetted nodes",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
       "targets": [
-        {
-          "exemplar": true,
-          "expr": "storj_stats_total_nodes{satellite=~\"$satellite.*\"}",
-          "hide": false,
-          "instant": false,
-          "interval": "",
-          "legendFormat": "Total nodes",
-          "refId": "F"
-        },
-        {
-          "exemplar": true,
-          "expr": "storj_stats_disqualified_nodes{satellite=~\"$satellite.*\"}",
-          "hide": false,
-          "instant": false,
-          "interval": "",
-          "legendFormat": "Disqualified nodes",
-          "refId": "B"
-        },
-        {
-          "exemplar": true,
-          "expr": "storj_stats_exited_nodes{satellite=~\"$satellite.*\"}",
-          "hide": false,
-          "instant": false,
-          "interval": "",
-          "legendFormat": "Exited nodes",
-          "refId": "C"
-        },
-        {
-          "exemplar": true,
-          "expr": "storj_stats_suspended_nodes{satellite=~\"$satellite.*\"}",
-          "hide": false,
-          "instant": false,
-          "interval": "",
-          "legendFormat": "Suspended nodes",
-          "refId": "E"
-        },
         {
           "exemplar": true,
           "expr": "storj_stats_vetted_nodes{satellite=~\"$satellite.*\"}",
           "hide": false,
           "instant": false,
           "interval": "",
-          "legendFormat": "Vetted nodes",
-          "refId": "G"
+          "legendFormat": "vetted nodes",
+          "refId": "F"
+        },
+        {
+          "exemplar": true,
+          "expr": "storj_stats_total_nodes{satellite=~\"$satellite.*\"}-\nstorj_stats_disqualified_nodes{satellite=~\"$satellite.*\"}-\nstorj_stats_exited_nodes{satellite=~\"$satellite.*\"}-\nstorj_stats_vetted_nodes{satellite=~\"$satellite.*\"}",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "legendFormat": "unvetted nodes",
+          "refId": "B"
         }
       ],
-      "title": "other Nodestatistics for $satellite",
-      "type": "timeseries"
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Vettingstatus $satellite",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:336",
+          "format": "none",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:337",
+          "format": "none",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "collapsed": false,
@@ -2132,7 +3198,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 126
+        "y": 149
       },
       "id": 324,
       "panels": [],
@@ -2145,11 +3211,11 @@
         "h": 5,
         "w": 12,
         "x": 0,
-        "y": 127
+        "y": 150
       },
       "id": 317,
       "options": {
-        "content": "---\n* Datasource: [stats.storjshare.io](https://stats.storjshare.io/) (updated hourly, scraped all 30 mins)\n* Additional Stats: [storjnet.info](http://storjnet.info/)\n* Featurerequests/Bugs: [Github](https://github.com/toconspiracy/storj-stats)\n* Donations: 0x899AD2F5cB94256FEAd50fe452EdA16B40F34E4B",
+        "content": "---\n* Datasource: <a href=\"https://stats.storjshare.io/\" target=\"_blank\">stats.storjshare.io</a> (updated hourly, scraped all 15 mins)\n* Additional Stats: <a href=\"http://storjnet.info/\" target=\"_blank\">storjnet.info</a>\n* Featurerequests/Bugs: <a href=\"https://github.com/toconspiracy/storj-stats/issues\" target=\"_blank\">Github</a>\n* Donations: 0x899AD2F5cB94256FEAd50fe452EdA16B40F34E4B\n\n<div style=\"text-align: right\"><a href=\"https://github.com/toconspiracy/storj-stats/releases/tag/1.0.0\" target=\"_blank\">Version 2.0.0</a></div>\n",
         "mode": "markdown"
       },
       "pluginVersion": "8.0.2",
@@ -2169,7 +3235,7 @@
         "h": 5,
         "w": 12,
         "x": 12,
-        "y": 127
+        "y": 150
       },
       "id": 320,
       "options": {
@@ -2196,15 +3262,11 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
         },
-        "datasource": "Prometheus Storj Stats",
+        "datasource": "VictoriaMetrics",
         "definition": "label_values(satellite)",
         "description": null,
         "error": null,
@@ -2227,7 +3289,7 @@
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-7d",
     "to": "now"
   },
   "timepicker": {},

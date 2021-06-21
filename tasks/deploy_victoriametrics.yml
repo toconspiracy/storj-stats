@@ -1,0 +1,34 @@
+---
+- name: Create Storj Stats VictoriaMetrics Directories
+  file:
+    path: "{{ storj_stats_path }}/victoriametrics/{{ item }}"
+    state: directory
+  loop:
+    - data
+    - conf
+
+- name: Copy VictoriaMetrics Config
+  template:
+    src: "{{ storj_stats_vm_config_template }}"
+    dest: "{{ storj_stats_path }}/victoriametrics/conf/config.yml"
+
+- name: Setup VictoriaMetrics
+  docker_container:
+    container_default_behavior: compatibility
+    networks_cli_compatible: no
+    restart_policy: always
+    name: storj-stats-victoriametrics
+    image: victoriametrics/victoria-metrics
+    memory: 512M
+    command:
+      - '-promscrape.config /vm-conf/config.yml'
+      - '-retentionPeriod {{ storj_stats_vm_retention }}'
+    mounts:
+      - type: bind
+        source: "{{ storj_stats_path }}/victoriametrics/data"
+        target: /victoria-metrics-data
+      - type: bind
+        source: "{{ storj_stats_path }}/victoriametrics/conf"
+        target: /vm-conf
+    networks:
+      - name: "{{ storj_stats_network_name }}"
