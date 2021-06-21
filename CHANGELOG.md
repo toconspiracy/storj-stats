@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- - fixed wrong exporter config for nodestats
+
 ## [1.0.0] - 2021-06-17
 
 ### Added

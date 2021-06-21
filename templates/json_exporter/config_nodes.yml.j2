@@ -32,7 +32,7 @@ metrics:
 - name: storj_stats_suspended_nodes
   type: value
   help: number of suspended storage nodes, excludes disqualified and exited nodes
-  path: '{.{{ satellite.id_escaped }}.active_nodes}'
+  path: '{.{{ satellite.id_escaped }}.suspended_nodes}'
   labels:
     satellite: '{{ satellite.name }}'
     category: nodes
