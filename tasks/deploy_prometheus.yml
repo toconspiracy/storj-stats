@@ -21,7 +21,7 @@
     restart_policy: always
     name: storj-stats-prometheus
     image: prom/prometheus
-    memory: 128M
+    memory: 512M
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'

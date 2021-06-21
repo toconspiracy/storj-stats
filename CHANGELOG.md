@@ -9,7 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- - fixed wrong exporter config for nodestats
+- fixed wrong exporter config for nodestats
+
+### Changed
+
+- changed default max memory for Grafana and Prometheus
 
 ## [1.0.0] - 2021-06-17
 

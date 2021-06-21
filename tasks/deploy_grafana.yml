@@ -41,7 +41,7 @@
     restart_policy: always
     name: storj-stats-grafana
     image: grafana/grafana
-    memory: 128M
+    memory: 512M
     mounts:
       - type: bind
         source: "{{ storj_stats_path }}/grafana/lib"
