@@ -1,7 +1,7 @@
 # {{ ansible_managed }}
 global:
-  scrape_interval:     30m # Set the scrape interval to every 15 seconds. Default is every 1 minute.
-  evaluation_interval: 30m # Evaluate rules every 15 seconds. The default is every 1 minute.
+  scrape_interval:     2m # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
 
 scrape_configs:
   ## gather metrics of prometheus itself
