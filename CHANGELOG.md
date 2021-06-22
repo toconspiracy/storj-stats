@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- added Timezone variable storj_stats_timezone for Proxy
+
 ## [2.0.0] - 2021-06-21
 
 ### Added

@@ -42,6 +42,7 @@
       DB_MYSQL_USER: "npm"
       DB_MYSQL_PASSWORD: "npm"
       DB_MYSQL_NAME: "npm"
+      TZ: "{{ storj_stats_timezone }}"
     mounts:
       - type: bind
         source: "{{ storj_stats_path }}/proxy_app/data"

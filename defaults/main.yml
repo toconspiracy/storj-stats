@@ -5,6 +5,9 @@ storj_stats_network_subnet: 172.11.0.0/24
 storj_stats_network_gateway: 172.11.0.1
 storj_stats_network_iprange: 172.11.0.64/26
 
+# General Settings
+storj_stats_timezone: Etc/UTC
+
 # Proxy Settings
 storj_stats_deploy_proxy: True
 

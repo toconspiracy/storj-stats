@@ -19,9 +19,10 @@ The target server needs to have Docker already installed and running.
 |Variable|Description|Default value|Required|
 | :- |:-| -:| -:|
 |storj_stats_network_name|Name of Dockernetwork|storj|no|
-|storj_stats_network_subnet|Subnet of Dockernetwork |172.11.0.0/24|no|
-|storj_stats_network_gateway|Gateway of Dockernetwork | 172.11.0.1|no|
-|storj_stats_network_iprange|Range of Dockernetwork | 172.11.0.64/26|no|
+|storj_stats_network_subnet|Subnet of Dockernetwork|172.11.0.0/24|no|
+|storj_stats_network_gateway|Gateway of Dockernetwork|172.11.0.1|no|
+|storj_stats_network_iprange|Range of Dockernetwork|172.11.0.64/26|no|
+|storj_stats_timezone|Timezone used by NGINX Proxy|Etc/UTC|no|
 |storj_stats_deploy_proxy|Dploey the nginx Proxy manager?|True|no|
 |storj_stats_exporter_config_template_path|Configtemplate for the Exporter|json_exporter|no|
 |storj_stats_vm_config_template|Configtemplate for Victoria Metrics|victoriametrics/vm_jobs.yml.j2|no|
