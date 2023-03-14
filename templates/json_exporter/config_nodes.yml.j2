@@ -57,4 +57,18 @@ metrics:
   labels:
     satellite: '{{ satellite.name }}'
     category: nodes
+- name: storj_stats_active_wallets
+  type: value
+  help: number of active wallets
+  path: '{.{{ satellite.id_escaped }}.active_wallets}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: nodes
+- name: storj_stats_payout
+  type: value
+  help: node operators payouts in USD dollars (historical)
+  path: '{.{{ satellite.id_escaped }}.payout[-1:].total_usd}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: nodes
 {% endfor %}

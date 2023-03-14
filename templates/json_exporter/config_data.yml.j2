@@ -59,8 +59,15 @@ metrics:
     category: data
 - name: storj_stats_storage_remote_segments_lost
   type: value
-  help: number of irreparable segments lost from storage nodes
+  help: number of segments that the repairer could not download at moment, usually due to network problems.
   path: '{.{{ satellite.id_escaped }}.storage_remote_segments_lost}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: data
+- name: storj_stats_storage_total_bytes_after_expansion
+  type: value
+  help: total number of bytes stored on the network after expansion by erasure coding
+  path: '{.{{ satellite.id_escaped }}.storage_total_bytes_after_expansion}'
   labels:
     satellite: '{{ satellite.name }}'
     category: data
@@ -95,6 +102,13 @@ metrics:
 - name: storj_stats_storage_free_capacity_estimate_bytes
   type: value
   help: statistical estimate of free storage node capacity, with suspicious values removed
+  path: '{.{{ satellite.id_escaped }}.storage_free_capacity_estimate_bytes}'
+  labels:
+    satellite: '{{ satellite.name }}'
+    category: data
+- name: storj_stats_storage_free_capacity_estimate_vetted_bytes
+  type: value
+  help: statistical estimate of free storage node capacity considering only vetted nodes
   path: '{.{{ satellite.id_escaped }}.storage_free_capacity_estimate_bytes}'
   labels:
     satellite: '{{ satellite.name }}'
