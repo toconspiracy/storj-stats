@@ -256,7 +256,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(storj_stats_storage_remote_segments_lost{satellite=~\"Europe-North-1|Saltlake|US2\"})",
+          "expr": "sum(storj_stats_storage_remote_segments_lost{satellite=~\"Saltlake\"})",
           "interval": "",
           "legendFormat": "",
           "queryType": "randomWalk",
@@ -503,7 +503,8 @@
       "renderer": "flot",
       "seriesOverrides": [
         {
-          "alias": "stored customer Data",
+          "$$hashKey": "object:177",
+          "alias": "stor",
           "yaxis": 2
         }
       ],
@@ -521,11 +522,19 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(storj_stats_storage_remote_bytes)",
+          "expr": "sum(storj_stats_storage_remote_bytes)*2.4",
           "interval": "",
-          "legendFormat": "stored customer Data",
+          "legendFormat": "stored customer Data (calculated expansion)",
           "queryType": "randomWalk",
           "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum(storj_stats_storage_total_bytes_after_expansion)-sum(storj_stats_storage_inline_bytes)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "stored customer Data (original expansion)",
+          "refId": "C"
         }
       ],
       "thresholds": [],
@@ -548,6 +557,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:184",
           "format": "decbytes",
           "label": null,
           "logBase": 1,
@@ -556,6 +566,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:185",
           "format": "decbytes",
           "label": null,
           "logBase": 1,
@@ -1247,7 +1258,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(storj_stats_storage_total_bytes_after_expansion)",
+          "expr": "sum(storj_stats_storage_total_bytes_after_expansion)-sum(storj_stats_storage_inline_bytes)",
           "hide": false,
           "interval": "",
           "legendFormat": "stored Data (expanded)",
@@ -3479,7 +3490,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "max(storj_stats_storage_free_capacity_estimate_bytes{satellite=~\"Europe-North-1|Saltlake|US2\"})",
+          "expr": "max(storj_stats_storage_free_capacity_estimate_bytes{satellite=~\"Saltlake\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "free reported space",
@@ -3487,7 +3498,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(storj_stats_storage_remote_bytes{satellite=~\"Europe-North-1|Saltlake|US2\"})",
+          "expr": "sum(storj_stats_storage_remote_bytes{satellite=~\"Saltlake\"})",
           "interval": "",
           "legendFormat": "stored test data",
           "queryType": "randomWalk",
@@ -3544,7 +3555,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(storj_stats_registered_accounts{satellite=~\"Europe-North-1|Saltlake|US2\"})",
+          "expr": "sum(storj_stats_registered_accounts{satellite=~\"Saltlake\"})",
           "interval": "",
           "legendFormat": "",
           "queryType": "randomWalk",
@@ -3603,7 +3614,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "delta(sum(storj_stats_registered_accounts{satellite=~\"Europe-North-1|Saltlake|US2\"})[24h])",
+          "expr": "delta(sum(storj_stats_registered_accounts{satellite=~\"Saltlake\"})[24h])",
           "interval": "",
           "legendFormat": "",
           "queryType": "randomWalk",
@@ -3613,130 +3624,6 @@
       "timeFrom": null,
       "timeShift": null,
       "title": "24h Delta",
-      "type": "stat"
-    },
-    {
-      "datasource": "VictoriaMetrics",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "purple",
-            "mode": "fixed"
-          },
-          "decimals": 0,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "yellow",
-                "value": null
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 12,
-        "y": 53
-      },
-      "id": 298,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "8.0.2",
-      "repeatDirection": "v",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "storj_stats_registered_accounts{satellite=\"US2\"}",
-          "interval": "",
-          "legendFormat": "",
-          "queryType": "randomWalk",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "US2 Registered Accounts",
-      "type": "stat"
-    },
-    {
-      "datasource": "VictoriaMetrics",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "blue",
-            "mode": "fixed"
-          },
-          "decimals": 0,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "yellow",
-                "value": null
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 16,
-        "y": 53
-      },
-      "id": 299,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "8.0.2",
-      "repeatDirection": "v",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "storj_stats_registered_accounts{satellite=\"Europe-North-1\"}",
-          "interval": "",
-          "legendFormat": "",
-          "queryType": "randomWalk",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Europe-North-1 Registered Accounts",
       "type": "stat"
     },
     {
@@ -3765,7 +3652,7 @@
       "gridPos": {
         "h": 5,
         "w": 4,
-        "x": 20,
+        "x": 12,
         "y": 53
       },
       "id": 300,
@@ -3851,204 +3738,6 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "semi-dark-purple",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "reported free capacity"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "super-light-purple",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 4,
-        "x": 12,
-        "y": 58
-      },
-      "id": 265,
-      "options": {
-        "displayLabels": [],
-        "legend": {
-          "displayMode": "table",
-          "placement": "bottom",
-          "values": [
-            "value"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "storj_stats_storage_total_bytes{satellite=\"US2\"}",
-          "interval": "",
-          "legendFormat": "used capacity",
-          "queryType": "randomWalk",
-          "refId": "A"
-        },
-        {
-          "exemplar": true,
-          "expr": "storj_stats_storage_free_capacity_estimate_bytes{satellite=~\"US2\"}",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "reported free capacity",
-          "refId": "B"
-        }
-      ],
-      "title": "Used Capacity US2",
-      "type": "piechart"
-    },
-    {
-      "datasource": "VictoriaMetrics",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": [],
-          "unit": "decbytes"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "used capacity"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "light-blue",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "reported free capacity"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "super-light-blue",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 4,
-        "x": 16,
-        "y": 58
-      },
-      "id": 262,
-      "options": {
-        "displayLabels": [],
-        "legend": {
-          "displayMode": "table",
-          "placement": "bottom",
-          "values": [
-            "value"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "storj_stats_storage_total_bytes{satellite=\"Europe-North-1\"}",
-          "interval": "",
-          "legendFormat": "used capacity",
-          "queryType": "randomWalk",
-          "refId": "A"
-        },
-        {
-          "exemplar": true,
-          "expr": "storj_stats_storage_free_capacity_estimate_bytes{satellite=~\"Europe-North-1\"}",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "reported free capacity",
-          "refId": "B"
-        }
-      ],
-      "title": "Used Capacity Europe-North1",
-      "type": "piechart"
-    },
-    {
-      "datasource": "VictoriaMetrics",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": [],
-          "unit": "decbytes"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "used capacity"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
                   "fixedColor": "semi-dark-orange",
                   "mode": "fixed"
                 }
@@ -4075,7 +3764,7 @@
       "gridPos": {
         "h": 12,
         "w": 4,
-        "x": 20,
+        "x": 12,
         "y": 58
       },
       "id": 263,
@@ -4169,7 +3858,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(storj_stats_storage_total_objects{satellite=~\"Europe-North-1|Saltlake|US2\"})",
+          "expr": "sum(storj_stats_storage_total_objects{satellite=~\"Saltlake\"})",
           "interval": "",
           "legendFormat": "",
           "queryType": "randomWalk",
@@ -4227,7 +3916,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "delta(sum(storj_stats_storage_total_objects{satellite=~\"Europe-North-1|Saltlake|US2\"})[24h])",
+          "expr": "delta(sum(storj_stats_storage_total_objects{satellite=~\"Saltlake\"})[24h])",
           "interval": "",
           "legendFormat": "",
           "queryType": "randomWalk",
@@ -4284,7 +3973,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "delta(max(storj_stats_storage_free_capacity_estimate_bytes{satellite=~\"Europe-North-1|Saltlake|US2\"})[24h])",
+          "expr": "delta(max(storj_stats_storage_free_capacity_estimate_bytes{satellite=~\"Saltlake\"})[24h])",
           "interval": "",
           "legendFormat": "",
           "queryType": "randomWalk",
@@ -4342,7 +4031,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "delta(sum(storj_stats_storage_remote_bytes{satellite=~\"Europe-North-1|Saltlake|US2\"})[24h])",
+          "expr": "delta(sum(storj_stats_storage_remote_bytes{satellite=~\"Saltlake\"})[24h])",
           "interval": "",
           "legendFormat": "",
           "queryType": "randomWalk",
@@ -4400,7 +4089,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(storj_stats_storage_total_segments{satellite=~\"Europe-North-1|Saltlake|US2\"})",
+          "expr": "sum(storj_stats_storage_total_segments{satellite=~\"Saltlake\"})",
           "interval": "",
           "legendFormat": "",
           "queryType": "randomWalk",
@@ -4458,7 +4147,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "delta(sum(storj_stats_storage_total_segments{satellite=~\"Europe-North-1|Saltlake|US2\"})[24h])",
+          "expr": "delta(sum(storj_stats_storage_total_segments{satellite=~\"Saltlake\"})[24h])",
           "interval": "",
           "legendFormat": "",
           "queryType": "randomWalk",
@@ -4528,7 +4217,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "max(storj_stats_storage_free_capacity_estimate_bytes{satellite=~\"Europe-North-1|Saltlake|US2\"})",
+          "expr": "max(storj_stats_storage_free_capacity_estimate_bytes{satellite=~\"Saltlake\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "free reported space",
@@ -4536,7 +4225,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(storj_stats_storage_remote_bytes{satellite=~\"Europe-North-1|Saltlake|US2\"})",
+          "expr": "sum(storj_stats_storage_remote_bytes{satellite=~\"Saltlake\"})",
           "interval": "",
           "legendFormat": "stored test data",
           "queryType": "randomWalk",
@@ -4634,7 +4323,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(storj_stats_storage_total_pieces{satellite=~\"Europe-North-1|Saltlake|US2\"})",
+          "expr": "sum(storj_stats_storage_total_pieces{satellite=~\"Saltlake\"})",
           "interval": "",
           "legendFormat": "",
           "queryType": "randomWalk",
@@ -4692,7 +4381,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "delta(sum(storj_stats_storage_total_pieces{satellite=~\"Europe-North-1|Saltlake|US2\"})[24h])",
+          "expr": "delta(sum(storj_stats_storage_total_pieces{satellite=~\"Saltlake\"})[24h])",
           "interval": "",
           "legendFormat": "",
           "queryType": "randomWalk",
@@ -4700,238 +4389,6 @@
         }
       ],
       "title": "Delta 24h total pieces",
-      "type": "stat"
-    },
-    {
-      "datasource": "VictoriaMetrics",
-      "description": "number of bytes downloaded (egress) from the network for the last 30 days",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "purple",
-                "value": null
-              }
-            ]
-          },
-          "unit": "decbytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 2,
-        "x": 12,
-        "y": 70
-      },
-      "id": 270,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "8.0.2",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "storj_stats_bandwidth_bytes_downloaded{satellite=~\"US2\"}",
-          "interval": "",
-          "legendFormat": "",
-          "queryType": "randomWalk",
-          "refId": "A"
-        }
-      ],
-      "title": "US2 Egress (last 30 Days)",
-      "type": "stat"
-    },
-    {
-      "datasource": "VictoriaMetrics",
-      "description": "number of bytes uploaded (ingress) to the network for the last 30 days",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "purple",
-                "value": null
-              }
-            ]
-          },
-          "unit": "decbytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 2,
-        "x": 14,
-        "y": 70
-      },
-      "id": 275,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "8.0.2",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "storj_stats_bandwidth_bytes_uploaded{satellite=~\"US2\"}",
-          "interval": "",
-          "legendFormat": "",
-          "queryType": "randomWalk",
-          "refId": "A"
-        }
-      ],
-      "title": "US2 Ingress (last 30 Days)",
-      "type": "stat"
-    },
-    {
-      "datasource": "VictoriaMetrics",
-      "description": "number of bytes downloaded (egress) from the network for the last 30 days",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "blue",
-                "value": null
-              }
-            ]
-          },
-          "unit": "decbytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 2,
-        "x": 16,
-        "y": 70
-      },
-      "id": 267,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "8.0.2",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "storj_stats_bandwidth_bytes_downloaded{satellite=~\"Europe-North-1\"}",
-          "interval": "",
-          "legendFormat": "",
-          "queryType": "randomWalk",
-          "refId": "A"
-        }
-      ],
-      "title": "Europe-North-1 Egress (last 30 Days)",
-      "type": "stat"
-    },
-    {
-      "datasource": "VictoriaMetrics",
-      "description": "number of bytes uploaded (ingress) to the network for the last 30 days",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "blue",
-                "value": null
-              }
-            ]
-          },
-          "unit": "decbytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 2,
-        "x": 18,
-        "y": 70
-      },
-      "id": 271,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "8.0.2",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "storj_stats_bandwidth_bytes_uploaded{satellite=~\"Europe-North-1\"}",
-          "interval": "",
-          "legendFormat": "",
-          "queryType": "randomWalk",
-          "refId": "A"
-        }
-      ],
-      "title": "Europe-North-1 Ingress (last 30 Days)",
       "type": "stat"
     },
     {
@@ -4959,7 +4416,7 @@
       "gridPos": {
         "h": 5,
         "w": 2,
-        "x": 20,
+        "x": 12,
         "y": 70
       },
       "id": 268,
@@ -5017,7 +4474,7 @@
       "gridPos": {
         "h": 5,
         "w": 2,
-        "x": 22,
+        "x": 14,
         "y": 70
       },
       "id": 273,
@@ -5112,7 +4569,7 @@
       "type": "text"
     }
   ],
-  "refresh": false,
+  "refresh": "",
   "schemaVersion": 30,
   "style": "dark",
   "tags": [],
@@ -5127,5 +4584,5 @@
   "timezone": "",
   "title": "Storj Network Statistics [WIP]",
   "uid": "storj-wip",
-  "version": 44
+  "version": 49
 }

@@ -53,3 +53,6 @@
     #    - "3000:3000"
     networks:
       - name: "{{ storj_stats_network_name }}"
+    log_options:
+        max-size: "100m"
+        max-file: "5"
